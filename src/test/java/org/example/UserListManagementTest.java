@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -43,6 +44,33 @@ class UserListManagementTest {
         ArrayList<User> actual = userListManagement.getAllUsers();
         List<User> expect = List.of(user1,user2);
         assertEquals(expect,actual);
+    }
+
+    @Test
+    void findUserById_wrongId_returnEmptyOptional() {
+        Optional<User> actual = userListManagement.findUserById("a");
+        assertEquals(Optional.empty(),actual);
+    }
+
+    @Test
+    void findUserById_emptyStringId_returnEmptyOptional() {
+        Optional<User> actual = userListManagement.findUserById("");
+        assertEquals(Optional.empty(),actual);
+    }
+
+    @Test
+    void findUserById_correctId_returnUser() {
+        users.add(user1);
+        Optional<User> actual = userListManagement.findUserById("u1");
+        assertEquals(user1,actual.get());
+    }
+
+    @Test
+    void findUserById_correctId2_returnUser2() {
+        users.add(user1);
+        users.add(user2);
+        Optional<User> actual = userListManagement.findUserById("u2");
+        assertEquals(user2,actual.get());
     }
 
 }

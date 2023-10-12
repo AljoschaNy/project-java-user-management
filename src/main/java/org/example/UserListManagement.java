@@ -43,7 +43,7 @@ public class UserListManagement implements UserManagement{
         if(userToRemove.isPresent()) {
             userList.remove(userToRemove.get());
         } else {
-            throw new NoSuchUserException();
+            throw new NoSuchUserException("Can't find the user with the id " + userId);
         }
     }
 

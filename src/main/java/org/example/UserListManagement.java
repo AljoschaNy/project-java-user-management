@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.exception.NoSuchUserException;
+
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -36,9 +38,13 @@ public class UserListManagement implements UserManagement{
     }
 
     @Override
-    public void removeUser(String userId) {
-        User userToRemove = findUserById(userId).get();
-        userList.remove(userToRemove);
+    public void removeUser(String userId) throws NoSuchUserException {
+        Optional<User> userToRemove = findUserById(userId);
+        if(userToRemove.isPresent()) {
+            userList.remove(userToRemove.get());
+        } else {
+            throw new NoSuchUserException();
+        }
     }
 
     @Override

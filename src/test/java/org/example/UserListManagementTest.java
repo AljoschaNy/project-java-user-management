@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.exception.NoSuchUserException;
 import org.junit.jupiter.api.Test;
 
 import java.awt.image.AreaAveragingScaleFilter;
@@ -74,16 +75,25 @@ class UserListManagementTest {
     }
 
     @Test
-    void removeUser_fromEmptyList() {
+    void removeUser_fromEmptyList_throwNoSuchUserException() {
+        assertThrows(NoSuchUserException.class, () -> {
+            userListManagement.removeUser("u1");
+        });
+    }
+
+    @Test
+    void removeUser_correctIdOfUser_removeThisUserFromList() throws NoSuchUserException {
+        users.add(user1);
         userListManagement.removeUser("u1");
         assertEquals(List.of(),users);
     }
 
     @Test
-    void removeUser_correctIdOfUser_removeThisUserFromList() {
+    void removeUser_idOfUserInvalid_throwNoSuchUserException() {
         users.add(user1);
-        userListManagement.removeUser("u1");
-        assertEquals(List.of(),users);
+        assertThrows(NoSuchUserException.class, () ->{
+            userListManagement.removeUser("u2");
+        });
     }
 
 }

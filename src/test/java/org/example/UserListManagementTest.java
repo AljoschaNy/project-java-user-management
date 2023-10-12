@@ -96,4 +96,19 @@ class UserListManagementTest {
         });
     }
 
+    @Test
+    void changeUserRole_newRoleEqualsOldRole_returnUnchangedUser() throws NoSuchUserException {
+        users.add(user1);
+        Optional<User> actual = userListManagement.changeUserRole("u1",Role.USER);
+        assertEquals(Optional.empty(),actual);
+    }
+
+    @Test
+    void changeUserRole_newRoleNotEqualsOldRole_returnChangedUser() throws NoSuchUserException {
+        users.add(user1);
+        Optional<User> actual = userListManagement.changeUserRole("u1",Role.ADMIN);
+        Optional<User> expect = Optional.of(new User("u1","Max","Mustermann","maxi",Role.ADMIN));
+        assertEquals(expect,actual);
+    }
+
 }

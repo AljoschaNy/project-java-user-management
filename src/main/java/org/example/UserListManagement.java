@@ -48,8 +48,19 @@ public class UserListManagement implements UserManagement{
     }
 
     @Override
-    public void changeUserRole(String userId, Role userRole) {
-
+    public Optional<User> changeUserRole(String userId, Role userRole) throws NoSuchUserException {
+        try {
+            User userToChange = findUserById(userId).get();
+            if(userToChange.getUserRole() != userRole){
+                User changedUser = userToChange.withUserRole(userRole);
+                removeUser(userId);
+                addUser(changedUser);
+                return Optional.of(changedUser);
+            }
+        } catch(NoSuchUserException e) {
+            throw new NoSuchUserException();
+        }
+        return Optional.empty();
     }
 
 

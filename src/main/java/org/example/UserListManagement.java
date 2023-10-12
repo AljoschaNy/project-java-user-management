@@ -27,6 +27,11 @@ public class UserListManagement implements UserManagement{
 
     @Override
     public Optional<User> findUserById(String userId) {
+        for(User user : userList) {
+            if(user.getId().equals(userId)) {
+                return Optional.of(user);
+            }
+        }
         return Optional.empty();
     }
 

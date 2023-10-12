@@ -37,7 +37,8 @@ public class UserListManagement implements UserManagement{
 
     @Override
     public void removeUser(String userId) {
-
+        User userToRemove = findUserById(userId).get();
+        userList.remove(userToRemove);
     }
 
     @Override

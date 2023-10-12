@@ -73,4 +73,17 @@ class UserListManagementTest {
         assertEquals(user2,actual.get());
     }
 
+    @Test
+    void removeUser_fromEmptyList() {
+        userListManagement.removeUser("u1");
+        assertEquals(List.of(),users);
+    }
+
+    @Test
+    void removeUser_correctIdOfUser_removeThisUserFromList() {
+        users.add(user1);
+        userListManagement.removeUser("u1");
+        assertEquals(List.of(),users);
+    }
+
 }

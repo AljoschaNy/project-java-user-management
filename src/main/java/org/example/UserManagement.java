@@ -10,7 +10,7 @@ public interface UserManagement {
     ArrayList<User> getAllUsers();
     Optional<User> findUserById(String userId);
     void removeUser(String userId) throws NoSuchUserException;
-    void changeUserRole(String userId, Role userRole);
+    Optional<User> changeUserRole(String userId, Role userRole) throws NoSuchUserException;
 
 
 }
